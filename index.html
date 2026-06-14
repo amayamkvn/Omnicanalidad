@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caso Práctico — Omnicanalidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #ffffff;
+      --bg: #fafbfc;
+      --bg-alt: #f1f5f4;
+      --border: #e4e9ee;
+      --text: #1a2b3c;
+      --text-secondary: #526578;
+      --text-muted: #8896a4;
+      --accent: #0d6b5e;
+      --accent-light: #e8f5f2;
+      --accent-medium: #b8ddd5;
+      --pain: #b44a3f;
+      --pain-bg: #fdf0ee;
+      --solution: #2a7d5f;
+      --solution-bg: #eef8f3;
+      --emotion-bg: #fef9ec;
+      --emotion: #9a7b2e;
+      --radius: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-brand {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .header-brand svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .header-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .header-nav a:hover {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      padding: 56px 0;
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== DESCRIPTION CARD ===== */
+    .desc-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      line-height: 1.75;
+    }
+
+    .desc-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .desc-card ul {
+      margin: 10px 0 0 20px;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .desc-card ul li {
+      margin-bottom: 4px;
+    }
+
+    .desc-card ul li::marker {
+      color: var(--accent);
+    }
+
+    /* ===== PROFILE ===== */
+    .profile-block {
+      margin-top: 24px;
+    }
+
+    .profile-label {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    /* ===== CHANNELS ===== */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .channel-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .channel-item:hover {
+      border-color: var(--accent-medium);
+      box-shadow: 0 2px 12px rgba(13, 107, 94, 0.06);
+    }
+
+    .channel-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 14px;
+      border-radius: 10px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .channel-item h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .channel-item p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .channel-tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .channel-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 50px;
+      background: var(--bg-alt);
+      color: var(--text-secondary);
+    }
+
+    /* ===== PROFILE CARD ===== */
+    .profile-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .profile-avatar {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .profile-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .profile-card .role-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+
+    .profile-card p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ===== JOURNEY ===== */
+    #journey {
+      padding: 56px 0 40px;
+    }
+
+    .journey-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    /* Phase progress bar */
+    .journey-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+      padding: 0 20px;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+
+    .progress-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.35s ease;
+      position: relative;
+    }
+
+    .progress-step.active .progress-dot {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 0 0 4px var(--accent-light);
+    }
+
+    .progress-step-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 8px;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+    }
+
+    .progress-step.active .progress-step-label {
+      color: var(--accent);
+    }
+
+    .progress-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      position: relative;
+      margin: 0 -4px;
+      margin-bottom: 22px;
+    }
+
+    .progress-line-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.5s ease;
+    }
+
+    /* Phase content */
+    .phase-container {
+      position: relative;
+      min-height: 400px;
+    }
+
+    .phase-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .phase-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .phase-title-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase-number-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    .phase-title-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Detail rows */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .detail-row {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: border-color 0.25s ease;
+    }
+
+    .detail-row:hover {
+      border-color: var(--accent-medium);
+    }
+
+    .detail-row.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .detail-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .detail-label-icon {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .detail-label-icon.action { background: var(--accent); }
+    .detail-label-icon.touchpoint { background: #3b82f6; }
+    .detail-label-icon.emotion { background: var(--emotion); }
+    .detail-label-icon.pain { background: var(--pain); }
+    .detail-label-icon.solution { background: var(--solution); }
+
+    .detail-label span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+    }
+
+    .detail-label span.action { color: var(--accent); }
+    .detail-label span.touchpoint { color: #3b82f6; }
+    .detail-label span.emotion { color: var(--emotion); }
+    .detail-label span.pain { color: var(--pain); }
+    .detail-label span.solution { color: var(--solution); }
+
+    .detail-row p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .detail-row.pain-row {
+      border-left: 3px solid var(--pain);
+      background: var(--pain-bg);
+    }
+
+    .detail-row.solution-row {
+      border-left: 3px solid var(--solution);
+      background: var(--solution-bg);
+    }
+
+    /* Touchpoint pills inside detail */
+    .tp-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .tp-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 50px;
+      background: #eef4ff;
+      color: #3b82f6;
+      border: 1px solid #d4e2f7;
+    }
+
+    /* Navigation arrows */
+    .phase-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .phase-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .phase-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .phase-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .phase-btn:disabled:hover {
+      border-color: var(--border);
+      color: var(--text-muted);
+      background: var(--white);
+    }
+
+    .phase-btn.primary {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .phase-btn.primary:hover {
+      background: #0b5c51;
+      color: var(--white);
+    }
+
+    .phase-counter {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .channels-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .header-nav { display: none; }
+
+      .journey-progress {
+        padding: 0 4px;
+      }
+
+      .progress-step-label {
+        font-size: 0.6rem;
+      }
+
+      .progress-dot {
+        width: 34px;
+        height: 34px;
+        font-size: 0.75rem;
+      }
+
+      .phase-title-text {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Omnicanalidad
+      </div>
+      <nav>
+        <ul class="header-nav">
+          <li><a href="#context">Contexto</a></li>
+          <li><a href="#channels">Canales</a></li>
+          <li><a href="#profile">Cliente</a></li>
+          <li><a href="#journey">Journey</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">Caso Práctico</div>
+      <h1>Customer Journey<br><em>Omnicanal</em></h1>
+      <p>Recorrido interactivo de una tienda de tecnología que integra canales digitales, directos y físicos para crear una experiencia de compra unificada.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Customer Description -->
+  <section class="section" id="context">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Contexto</div>
+        <h2 class="section-title">Customer Description</h2>
+      </div>
+      <div class="desc-card reveal">
+        <p>Para este caso práctico las partes involucradas serán, una tienda de tecnología centrada en clientes masivo y retail, ofreciendo productos tecnológicos y línea blanca. Los canales que como empresa tendremos a disponibilidad serán:</p>
+        <ul>
+          <li>Presencia digital mediante redes sociales como Facebook e Instagram</li>
+          <li>Canales de comunicación directa como call center y Whatsapp</li>
+          <li>Presencia física con sucursales modernas.</li>
+        </ul>
+        <div class="profile-block">
+          <p class="profile-label">Perfil del cliente:</p>
+          <p>Cliente joven que trabaja en oficina durante la semana y en ocasiones también los sábados, no cuenta con mucho tiempo para movilizarse a excepción de los domingos pero prefiere dedicar el tiempo a otras actividades por lo que busca una atención rápida cuando asiste a tiendas físicas. Está por empezar una nueva maestría en transformación digital por lo que está pensando en cambiar de laptop y quizá adquirir una Tablet para tomar apuntes y leer de manera cómoda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Channels -->
+  <section class="section" id="channels">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Canales</div>
+        <h2 class="section-title">Ecosistema de Contacto</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-item reveal">
+          <div class="channel-icon">📱</div>
+          <h4>Presencia Digital</h4>
+          <p>Redes sociales y plataformas en línea</p>
+          <div class="channel-tags">
+            <span class="channel-tag">Facebook</span>
+            <span class="channel-tag">Instagram</span>
+          </div>
+        </div>
+        <div class="channel-item reveal">
+          <div class="channel-icon">💬</div>
+          <h4>Comunicación Directa</h4>
+          <p>Atención personalizada al cliente</p>
+          <div class="channel-tags">
+            <span class="channel-tag">Call Center</span>
+            <span class="channel-tag">Whatsapp</span>
+          </div>
+        </div>
+        <div class="channel-item reveal">
+          <div class="channel-icon">🏬</div>
+          <h4>Presencia Física</h4>
+          <p>Experiencia tangible y cercana</p>
+          <div class="channel-tags">
+            <span class="channel-tag">Sucursales Modernas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Customer Profile -->
+  <section class="section" id="profile">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Perfil</div>
+        <h2 class="section-title">Perfil del Cliente</h2>
+      </div>
+      <div class="profile-card reveal">
+        <div class="profile-avatar">👩‍💻</div>
+        <div>
+          <h3>Cliente Joven Profesional</h3>
+          <span class="role-tag">Maestría en Transformación Digital</span>
+          <p>Cliente joven que trabaja en oficina durante la semana y en ocasiones también los sábados, no cuenta con mucho tiempo para movilizarse a excepción de los domingos pero prefiere dedicar el tiempo a otras actividades por lo que busca una atención rápida cuando asiste a tiendas físicas. Está por empezar una nueva maestría en transformación digital por lo que está pensando en cambiar de laptop y quizá adquirir una Tablet para tomar apuntes y leer de manera cómoda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- Customer Journey Map -->
+  <section class="section" id="journey">
+    <div class="container">
+      <div class="journey-header reveal">
+        <div class="section-label">Customer Journey Map</div>
+        <h2 class="section-title">El Recorrido del Cliente</h2>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="journey-progress reveal" id="journeyProgress">
+        <div class="progress-step active" data-step="0" onclick="goToPhase(0)">
+          <div class="progress-dot">1</div>
+          <span class="progress-step-label">Descubrimiento</span>
+        </div>
+        <div class="progress-line"><div class="progress-line-fill"></div></div>
+        <div class="progress-step" data-step="1" onclick="goToPhase(1)">
+          <div class="progress-dot">2</div>
+          <span class="progress-step-label">Comparación</span>
+        </div>
+        <div class="progress-line"><div class="progress-line-fill"></div></div>
+        <div class="progress-step" data-step="2" onclick="goToPhase(2)">
+          <div class="progress-dot">3</div>
+          <span class="progress-step-label">Decisión</span>
+        </div>
+        <div class="progress-line"><div class="progress-line-fill"></div></div>
+        <div class="progress-step" data-step="3" onclick="goToPhase(3)">
+          <div class="progress-dot">4</div>
+          <span class="progress-step-label">Post-Venta</span>
+        </div>
+      </div>
+
+      <!-- Phase Panels -->
+      <div class="phase-container" id="phaseContainer">
+
+        <!-- Phase 1 -->
+        <div class="phase-panel active" data-phase="0">
+          <div class="phase-title-bar">
+            <span class="phase-number-badge">Fase #1</span>
+            <span class="phase-title-text">Descubrimiento</span>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row full-width">
+              <div class="detail-label"><div class="detail-label-icon action"></div><span class="action">Customer Action</span></div>
+              <p>El cliente ve un anuncio en redes sociales con un descuento promocional incluido, esta publicidad lo redirige al e-commerce.</p>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon touchpoint"></div><span class="touchpoint">Touchpoints</span></div>
+              <div class="tp-pills">
+                <span class="tp-pill">Instagram</span>
+                <span class="tp-pill">Sitio web</span>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon emotion"></div><span class="emotion">Emotions</span></div>
+              <p>El cliente está interesado.</p>
+            </div>
+            <div class="detail-row pain-row">
+              <div class="detail-label"><div class="detail-label-icon pain"></div><span class="pain">Pain Points</span></div>
+              <p>El cliente no sabe si las imágenes son fieles a lo que es el producto en realidad.</p>
+            </div>
+            <div class="detail-row solution-row">
+              <div class="detail-label"><div class="detail-label-icon solution"></div><span class="solution">Solutions</span></div>
+              <p>Colocar las dimensiones reales del producto y un visor 3D para que pueda visualizarlo dentro de su oficina/estudio.</p>
+            </div>
+          </div>
+          <div class="phase-nav">
+            <button class="phase-btn" disabled>← Anterior</button>
+            <span class="phase-counter">1 / 4</span>
+            <button class="phase-btn primary" onclick="goToPhase(1)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="phase-panel" data-phase="1">
+          <div class="phase-title-bar">
+            <span class="phase-number-badge">Fase #2</span>
+            <span class="phase-title-text">Comparación</span>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row full-width">
+              <div class="detail-label"><div class="detail-label-icon action"></div><span class="action">Customer Action</span></div>
+              <p>Quiere ver el tamaño real de los productos. Visita la tienda física más cercana para tocar el equipo.</p>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon touchpoint"></div><span class="touchpoint">Touchpoints</span></div>
+              <div class="tp-pills">
+                <span class="tp-pill">Sucursal más cercana y conveniente al cliente</span>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon emotion"></div><span class="emotion">Emotions</span></div>
+              <p>El cliente se siente a la expectativa.</p>
+            </div>
+            <div class="detail-row pain-row">
+              <div class="detail-label"><div class="detail-label-icon pain"></div><span class="pain">Pain Points</span></div>
+              <p>Que el producto no esté exhibido o que la promoción que lo enganchó, no esté disponible en la tienda.</p>
+            </div>
+            <div class="detail-row solution-row">
+              <div class="detail-label"><div class="detail-label-icon solution"></div><span class="solution">Solutions</span></div>
+              <p>Unificar las promociones de la web y las sucursales físicas.</p>
+            </div>
+          </div>
+          <div class="phase-nav">
+            <button class="phase-btn" onclick="goToPhase(0)">← Anterior</button>
+            <span class="phase-counter">2 / 4</span>
+            <button class="phase-btn primary" onclick="goToPhase(2)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase-panel" data-phase="2">
+          <div class="phase-title-bar">
+            <span class="phase-number-badge">Fase #3</span>
+            <span class="phase-title-text">Decisión</span>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row full-width">
+              <div class="detail-label"><div class="detail-label-icon action"></div><span class="action">Customer Action</span></div>
+              <p>El cliente decide realizar la compra desde la comodidad de su hogar.</p>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon touchpoint"></div><span class="touchpoint">Touchpoints</span></div>
+              <div class="tp-pills">
+                <span class="tp-pill">App mobile</span>
+                <span class="tp-pill">Sitio web de comercio electrónico</span>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon emotion"></div><span class="emotion">Emotions</span></div>
+              <p>Decidido y entusiasmado por su nueva adquisición.</p>
+            </div>
+            <div class="detail-row pain-row">
+              <div class="detail-label"><div class="detail-label-icon pain"></div><span class="pain">Pain Points</span></div>
+              <p>Que el inventario no se actualice comprando un producto sin existencias. Que la pasarela de pago falle.</p>
+            </div>
+            <div class="detail-row solution-row">
+              <div class="detail-label"><div class="detail-label-icon solution"></div><span class="solution">Solutions</span></div>
+              <p>Asegurarnos de que la web refleje correctamente el stock en tiempo real.</p>
+            </div>
+          </div>
+          <div class="phase-nav">
+            <button class="phase-btn" onclick="goToPhase(1)">← Anterior</button>
+            <span class="phase-counter">3 / 4</span>
+            <button class="phase-btn primary" onclick="goToPhase(3)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="phase-panel" data-phase="3">
+          <div class="phase-title-bar">
+            <span class="phase-number-badge">Fase #4</span>
+            <span class="phase-title-text">Post-Venta</span>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row full-width">
+              <div class="detail-label"><div class="detail-label-icon action"></div><span class="action">Customer Action</span></div>
+              <p>El cliente recibe su producto y tiene una duda sobre el uso de uno de sus productos.</p>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon touchpoint"></div><span class="touchpoint">Touchpoints</span></div>
+              <div class="tp-pills">
+                <span class="tp-pill">Whatsapp</span>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label"><div class="detail-label-icon emotion"></div><span class="emotion">Emotions</span></div>
+              <p>Espera una atención inmediata y amigable aun siendo post-venta.</p>
+            </div>
+            <div class="detail-row pain-row">
+              <div class="detail-label"><div class="detail-label-icon pain"></div><span class="pain">Pain Points</span></div>
+              <p>Que la atención por medio de este canal no esté unificada y el cliente tenga que explicar muchos detalles de la compra.</p>
+            </div>
+            <div class="detail-row solution-row">
+              <div class="detail-label"><div class="detail-label-icon solution"></div><span class="solution">Solutions</span></div>
+              <p>Atención unificada y uso de CRM centralizado.</p>
+            </div>
+          </div>
+          <div class="phase-nav">
+            <button class="phase-btn" onclick="goToPhase(2)">← Anterior</button>
+            <span class="phase-counter">4 / 4</span>
+            <button class="phase-btn" disabled>Siguiente →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Caso Práctico de Omnicanalidad — Customer Journey Map</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== PHASE NAVIGATION =====
+    let currentPhase = 0;
+
+    function goToPhase(index) {
+      currentPhase = index;
+
+      // Update panels
+      document.querySelectorAll('.phase-panel').forEach(p => p.classList.remove('active'));
+      const panel = document.querySelector(`.phase-panel[data-phase="${index}"]`);
+      if (panel) panel.classList.add('active');
+
+      // Update progress steps
+      const steps = document.querySelectorAll('.progress-step');
+      const lines = document.querySelectorAll('.progress-line-fill');
+
+      steps.forEach((step, i) => {
+        step.classList.toggle('active', i <= index);
+      });
+
+      lines.forEach((line, i) => {
+        line.style.width = i < index ? '100%' : '0%';
+      });
+
+      // Scroll journey section into view smoothly
+      const journeyEl = document.getElementById('journey');
+      if (journeyEl) {
+        const rect = journeyEl.getBoundingClientRect();
+        if (rect.top < -100 || rect.top > window.innerHeight * 0.5) {
+          journeyEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    // ===== SCROLL REVEAL =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ===== KEYBOARD NAVIGATION =====
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && currentPhase < 3) goToPhase(currentPhase + 1);
+      if (e.key === 'ArrowLeft' && currentPhase > 0) goToPhase(currentPhase - 1);
+    });
+  </script>
+</body>
+</html>
